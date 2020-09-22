@@ -8,6 +8,8 @@ $(document).ready(function(){
 
     chiamataApi(prova);
 
+  });
+  
 });
 
 var source = $("#film-template").html();
@@ -45,5 +47,4 @@ function chiamataApi(prova) {
       }
     }
   );
-});
 }
