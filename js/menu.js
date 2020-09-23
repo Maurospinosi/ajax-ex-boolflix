@@ -27,31 +27,19 @@ function renderFilm(film) {
 
     var vote = parseInt(Math.ceil(film[i].vote_average / 2));
 
-   if(vote == 1){
-     for(var j = 1; j = 1; j++){
-      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
-     }
-   } else if (vote == 2){
-     for(var j = 1; j <= 2; j++){
-      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
-     }
-   } else if (vote == 3){
-     for(var j = 1; j <= 3; j++){
-      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
-     }
-   } else if (vote == 4){
-     for(var j = 1; j <= 4; j++){
-      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
-     }
-   } else if (vote == 5){
-     for(var j = 1; j <= 2; j++){
-      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
-     }
-   } else if (vote == 0){
-     for(var j = 1; j <= 5; j++){
-      var star = "<li>" + '<i class="far fa-star" id="vuota"></i>' + "</li>";
-     }
-   }
+    if (vote == 0){
+      var star = '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>';
+    } else if (vote == 1){
+      var star = '<i class="fas fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>';
+    } else if (vote == 2){
+      var star = '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>';
+    } else if (vote == 3){
+      var star = '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="far fa-star"></i>' + '<i class="far fa-star"></i>';
+    } else if (vote == 4){
+      var star = '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="far fa-star"></i>';
+    }else if (vote == 5){
+      var star = '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>' + '<i class="fas fa-star"></i>';
+    }
 
     var context = {
       "title": film[i].title,
