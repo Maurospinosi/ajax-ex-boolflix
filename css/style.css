@@ -34,3 +34,6 @@ input{
   background-color: lightgrey;
   color: black;
 }
+.display{
+  display: none;
+}

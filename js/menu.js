@@ -1,19 +1,17 @@
 $(document).ready(function(){
   //Al click invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
   $( ".bottone" ).click(function() {
-
-    $("#list_film").html("");
     var searchFilm = $(".barra").val();
-
+    resetSearch()
     chiamataApi(searchFilm);
   });
-  //Premendo invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
+
+  //Premendo "Invio" invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
   $(".barra").keyup(
     function (event) {
       if(event.which == 13){
-        $("#list_film").html("");
         var searchFilm = $(".barra").val();
-
+        resetSearch()
         chiamataApi(searchFilm);
       }
     }
@@ -26,11 +24,19 @@ var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
 function renderFilm(film) {
   for (var i=0; i<film.length; i++ ){
+
+    var vote = parseInt(Math.ceil(film[i].vote_average / 2));
+    console.log(vote);
+
+    if ( vote == 0){
+      $(".zero").removeClass("display");
+    }
+
     var context = {
       "title": film[i].title,
       "original_title": film[i].original_title,
       "language": film[i].original_language,
-      "vote": film[i].vote_average,
+      "vote": vote,
     };
 
     var html = template(context);
@@ -56,4 +62,9 @@ function chiamataApi(searchFilm) {
       }
     }
   );
+}
+//Funzione per pulire la barra input e la pagina html
+function resetSearch() {
+  $("#list_film").html("");
+  $(".barra").val("");
 }
