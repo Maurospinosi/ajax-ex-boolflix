@@ -26,17 +26,38 @@ function renderFilm(film) {
   for (var i=0; i<film.length; i++ ){
 
     var vote = parseInt(Math.ceil(film[i].vote_average / 2));
-    console.log(vote);
 
-    if ( vote == 0){
-      $(".zero").removeClass("display");
-    }
+   if(vote == 1){
+     for(var j = 1; j = 1; j++){
+      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
+     }
+   } else if (vote == 2){
+     for(var j = 1; j <= 2; j++){
+      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
+     }
+   } else if (vote == 3){
+     for(var j = 1; j <= 3; j++){
+      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
+     }
+   } else if (vote == 4){
+     for(var j = 1; j <= 4; j++){
+      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
+     }
+   } else if (vote == 5){
+     for(var j = 1; j <= 2; j++){
+      var star = "<li>" + '<i class="fas fa-star" id="piena"></i>' + "</li>";
+     }
+   } else if (vote == 0){
+     for(var j = 1; j <= 5; j++){
+      var star = "<li>" + '<i class="far fa-star" id="vuota"></i>' + "</li>";
+     }
+   }
 
     var context = {
       "title": film[i].title,
       "original_title": film[i].original_title,
       "language": film[i].original_language,
-      "vote": vote,
+      "vote": star,
     };
 
     var html = template(context);
