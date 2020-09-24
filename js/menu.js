@@ -2,6 +2,7 @@ $(document).ready(function(){
   //Al click invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
   $( ".bottone" ).click(function() {
     var searchFilm = $(".barra").val();
+
     resetSearch()
     chiamataApiFilm("film", searchFilm);
     chiamataApiTV("tv", searchFilm);
@@ -12,6 +13,7 @@ $(document).ready(function(){
     function (event) {
       if(event.which == 13){
         var searchFilm = $(".barra").val();
+
         resetSearch()
         chiamataApiFilm(searchFilm);
         chiamataApiTV(searchFilm);
@@ -25,27 +27,31 @@ var source = $("#film-template").html();
 var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
 function renderResult(type,  cin) {
+
   for (var i=0; i<cin.length; i++ ){
 
     var title;
     var original_title;
+    var containers;
+    var url = "https://image.tmdb.org/t/p/w185" + cin[i].poster_path;
 
     if(type == "film"){
       title = cin[i].title;
       original_title = cin[i].original_title;
-      var containers = $("#list_film");
+      containers = $("#list_film");
     } else if (type == "serietv"){
       title = cin[i].name;
       original_title = cin[i].original_name;
-      var containers = $("#list_tv");
+      containers = $("#list_tv");
     }
-    
+
     var context = {
       "title": title,
       "type" : type,
       "original_title": original_title,
       "language": langFunction(cin[i].original_language),
       "vote": voteFunction(cin[i].vote_average),
+      "poster" : url,
     };
 
     var html = template(context);
@@ -115,15 +121,15 @@ function voteFunction(num) {
 //Funzione per sostituire la lingua con la bandiera corrispondente
 function langFunction(lang) {
   if(lang == "en"){
-    return "<img src='img/engs.jpg'>";
+    return "<img class='flag' src='img/engs.jpg'>";
   } else if (lang == "it"){
-    return "<img src='img/ita.jpg'>";
+    return "<img class='flag' src='img/ita.jpg'>";
   }else if (lang == "fr"){
-    return "<img src='img/fra.jpg'>";
+    return "<img class='flag' src='img/fra.jpg'>";
   }else if (lang == "de"){
-    return "<img src='img/tede.jpg'>";
+    return "<img class='flag' src='img/tede.jpg'>";
   }else if (lang == "es"){
-    return "<img src='img/span.jpg'>";
+    return "<img class='flag' src='img/span.jpg'>";
   } else{
     return lang;
   }
