@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  //Al click invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
+  //Al click invoco le funzioni "chiamataApi" ,pulisco la pagine e collego il testo scritto nell' input con i titoli dei film e/o serie Tv
   $( ".bottone" ).click(function() {
     var searchFilm = $(".barra").val();
 
@@ -8,7 +8,7 @@ $(document).ready(function(){
     chiamataApiTV("tv", searchFilm);
   });
 
-  //Premendo "Invio" invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
+  //Premendo "Invio" invoco le funzioni "chiamataApi" ,pulisco la pagine e collego il testo scritto nell' input con i titoli dei film e/o serie Tv
   $(".barra").keyup(
     function (event) {
       if(event.which == 13){
@@ -26,15 +26,22 @@ $(document).ready(function(){
 var source = $("#film-template").html();
 var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
-function renderResult(type,  cin) {
+function renderResult(type, cin) {
 
   for (var i=0; i<cin.length; i++ ){
 
     var title;
     var original_title;
     var containers;
-    var url = "https://image.tmdb.org/t/p/w185" + cin[i].poster_path;
 
+    //Stampo il poster del film se è presente nell'API, altrimenti stampo "not found"
+    if(cin[i].poster_path == null){
+      var url = "img/mobile.png";
+    } else{
+      var url = "https://image.tmdb.org/t/p/w185" + cin[i].poster_path;
+    }
+
+    //Distinzione tra il titolo/ titolo originale dei film e delle serie tv
     if(type == "film"){
       title = cin[i].title;
       original_title = cin[i].original_title;
@@ -72,9 +79,12 @@ function chiamataApiFilm(searchFilm) {
       "method": "GET",
       "success" : function (data) {
         renderResult("film", data.results);
+        if(data.total_results == 0){
+          alert("Attenzione devi inserire il titolo di un film o di una serie Tv!");
+        }
       },
       "error": function (errore) {
-        alert("Errore!");
+        alert("Attenzione devi inserire il titolo di un film o di una serie Tv!");
       }
     }
   );
@@ -95,7 +105,6 @@ function chiamataApiTV(searchFilm) {
         renderResult("serietv", data.results);
       },
       "error": function (errore) {
-        alert("Errore!");
       }
     }
   );

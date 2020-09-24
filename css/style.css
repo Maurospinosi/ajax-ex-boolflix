@@ -34,9 +34,19 @@ input{
   background-color: lightgrey;
   color: black;
 }
-.display{
-  display: none;
-}
 .flag{
   width: 25px;
+}
+.black{
+  color:black;
+}
+.red{
+  color:red;
+}
+.larg{
+  width: 185px;
+}
+.post{
+  display:flex;
+  align-items: center;
 }
