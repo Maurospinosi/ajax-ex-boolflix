@@ -3,7 +3,8 @@ $(document).ready(function(){
   $( ".bottone" ).click(function() {
     var searchFilm = $(".barra").val();
     resetSearch()
-    chiamataApiFilm(searchFilm);
+    chiamataApiFilm("film", searchFilm);
+    chiamataApiTV("tv", searchFilm);
   });
 
   //Premendo "Invio" invoco la funzione "chiamataApi" ,pulisco la pagine e collego il testo scritto negli input con i titoli dei film
@@ -13,6 +14,7 @@ $(document).ready(function(){
         var searchFilm = $(".barra").val();
         resetSearch()
         chiamataApiFilm(searchFilm);
+        chiamataApiTV(searchFilm);
       }
     }
   );
@@ -22,18 +24,32 @@ $(document).ready(function(){
 var source = $("#film-template").html();
 var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
-function renderFilm(film) {
-  for (var i=0; i<film.length; i++ ){
+function renderResult(type,  cin) {
+  for (var i=0; i<cin.length; i++ ){
 
+    var title;
+    var original_title;
+
+    if(type == "film"){
+      title = cin[i].title;
+      original_title = cin[i].original_title;
+      var containers = $("#list_film");
+    } else if (type == "serietv"){
+      title = cin[i].name;
+      original_title = cin[i].original_name;
+      var containers = $("#list_tv");
+    }
+    
     var context = {
-      "title": film[i].title,
-      "original_title": film[i].original_title,
-      "language": langFunction(film[i].original_language),
-      "vote": voteFunction(film[i].vote_average),
+      "title": title,
+      "type" : type,
+      "original_title": original_title,
+      "language": langFunction(cin[i].original_language),
+      "vote": voteFunction(cin[i].vote_average),
     };
 
     var html = template(context);
-    $("#list_film").append(html);
+    containers.append(html);
   }
 }
 
@@ -49,7 +65,7 @@ function chiamataApiFilm(searchFilm) {
       },
       "method": "GET",
       "success" : function (data) {
-        renderFilm(data.results);
+        renderResult("film", data.results);
       },
       "error": function (errore) {
         alert("Errore!");
@@ -70,7 +86,7 @@ function chiamataApiTV(searchFilm) {
       },
       "method": "GET",
       "success" : function (data) {
-        renderFilm(data.results);
+        renderResult("serietv", data.results);
       },
       "error": function (errore) {
         alert("Errore!");
@@ -116,5 +132,6 @@ function langFunction(lang) {
 //Funzione per pulire la barra input e la pagina html
 function resetSearch() {
   $("#list_film").html("");
+  $("#list_tv").html("");
   $(".barra").val("");
 }
