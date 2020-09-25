@@ -28,17 +28,16 @@ var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
 function renderResult(type, cin) {
 
+  var title;
+  var original_title;
+  var containers;
+
   for (var i=0; i<cin.length; i++ ){
-
-    var title;
-    var original_title;
-    var containers;
-
     //Stampo il poster del film se è presente nell'API, altrimenti stampo "not found"
     if(cin[i].poster_path == null){
       var url = "img/mobile.png";
     } else{
-      var url = "https://image.tmdb.org/t/p/w185" + cin[i].poster_path;
+      var url = "https://image.tmdb.org/t/p/w342" + cin[i].poster_path;
     }
 
     //Distinzione tra il titolo/ titolo originale dei film e delle serie tv
@@ -103,6 +102,7 @@ function chiamataApiTV(searchFilm) {
       "method": "GET",
       "success" : function (data) {
         renderResult("serietv", data.results);
+        console.log(data.results);
       },
       "error": function (errore) {
       }

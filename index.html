@@ -12,29 +12,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
+  <header class="container">
+    <h1 class="logo">BOOLFLIX</h1>
     <div class="search-bar">
       <input type="text" name="search bar" class="barra" placeholder="Cerca il tuo film....">
       <button type="button" name="button" class="bottone"><i class="fas fa-search"></i></button>
     </div>
+  </header>
+
+  <div class="containers">
+    <ul id="list_film">
+
+    </ul>
+    <ul id="list_tv">
+
+    </ul>
   </div>
 
-  <ul id="list_film" class="black">
 
-  </ul>
-
-  <ul id="list_tv" class="red">
-
-  </ul>
   <script id="film-template" type="text/x-handlebars-template">
-    <li>
-      <h3>{{title}}</h3>
-      <p><strong> Tipologia :</strong>{{type}}</p>
-      <h3>{{original_title}} (Titolo originale) </h3>
-      <span class="post"><strong> Poster : </strong> <img class="larg" src="{{{poster}}}" alt="{{title}}"></span>
-      <p><strong>Lingua:</strong>{{{language}}}</p>
-      <p id="star"><strong>Voto:</strong>{{{vote}}}</p>
-    </li>
+    <div class="col">
+      <li>
+        <h2 class="display">{{title}}</h2>
+        <p class="display"><strong> Tipologia :</strong>{{type}}</p>
+        <h3 class="display">{{original_title}} (Titolo originale) </h3>
+        <img class="larg" src="{{{poster}}}" alt="{{title}}">
+        <p class="display"><strong>Lingua:</strong>{{{language}}}</p>
+        <p id="star" class="display"><strong>Voto:</strong>{{{vote}}}</p>
+      </li>
+    </div>
   </script>
 
 
