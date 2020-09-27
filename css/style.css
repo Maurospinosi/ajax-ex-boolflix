@@ -47,26 +47,42 @@ input{
 }
 .larg{
   width: 342px;
-  height: 487px;
-  border: 2px solid white;
+  height: 485px;
+}
+#star{
+  color: yellow;
+}
+.lop{
+  display: flex;
+  align-items: center;
 }
 .display{
   display: none;
 }
+.col:hover .larg{
+  display: none;
+}
+.col:hover .td{
+  display: block;
+}
 li{
   list-style: none;
-  position: absolute;
 }
 .containers{
   padding-top: 30px;
   max-width: 1200px;
   margin: auto;
 }
+ul{
+  display: flex;
+  flex-wrap: wrap;
+}
 .col{
-  display: inline-block;
   margin: 10px 10px;
   background-color: black;
   color: white;
   width: 342px;
   height: 485px;
+  line-height: 35px;
+  border: 2px solid white;
 }

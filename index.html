@@ -30,17 +30,19 @@
   </div>
 
 
+
+
   <script id="film-template" type="text/x-handlebars-template">
-    <div class="col">
-      <li>
-        <h2 class="display">{{title}}</h2>
-        <p class="display"><strong> Tipologia :</strong>{{type}}</p>
-        <h3 class="display">{{original_title}} (Titolo originale) </h3>
-        <img class="larg" src="{{{poster}}}" alt="{{title}}">
-        <p class="display"><strong>Lingua:</strong>{{{language}}}</p>
-        <p id="star" class="display"><strong>Voto:</strong>{{{vote}}}</p>
-      </li>
-    </div>
+    <li class="col">
+      <img class="larg" src="{{{poster}}}" alt="{{title}}">
+      <div class="td display">
+        <h3>{{original_title}} (Titolo originale) </h3>
+        <h2>{{title}}</h2>
+        <p><strong> Tipologia :</strong>{{type}}</p>
+        <p class="lop"><strong>Lingua:</strong>{{{language}}}</p>
+        <p id="star">{{{vote}}}</p>
+      </div>
+    </li>
   </script>
 
 

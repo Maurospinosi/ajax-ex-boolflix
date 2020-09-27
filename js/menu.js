@@ -6,6 +6,7 @@ $(document).ready(function(){
     resetSearch()
     chiamataApiFilm("film", searchFilm);
     chiamataApiTV("tv", searchFilm);
+
   });
 
   //Premendo "Invio" invoco le funzioni "chiamataApi" ,pulisco la pagine e collego il testo scritto nell' input con i titoli dei film e/o serie Tv
@@ -17,6 +18,10 @@ $(document).ready(function(){
         resetSearch()
         chiamataApiFilm(searchFilm);
         chiamataApiTV(searchFilm);
+        $(".td").hover(function() {
+          $( this ).fadeOut( 100 );
+          $( this ).fadeIn( 500 );
+        });
       }
     }
   );
