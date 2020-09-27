@@ -29,9 +29,6 @@
     </ul>
   </div>
 
-
-
-
   <script id="film-template" type="text/x-handlebars-template">
     <li class="col">
       <img class="larg" src="{{{poster}}}" alt="{{title}}">
@@ -43,6 +40,14 @@
         <p id="star">{{{vote}}}</p>
       </div>
     </li>
+  </script>
+
+  <script id="notfound_film-template" type="text/x-handlebars-template">
+    <li><strong>La ricerca non ha prodotto nessun Film</strong></li>
+  </script>
+
+  <script id="notfound_tv-template" type="text/x-handlebars-template">
+    <li><strong>La ricerca non ha prodotto nessuna serie Tv</strong></li>
   </script>
 
 

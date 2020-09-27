@@ -1,33 +1,29 @@
 $(document).ready(function(){
   //Al click invoco le funzioni "chiamataApi" ,pulisco la pagine e collego il testo scritto nell' input con i titoli dei film e/o serie Tv
   $( ".bottone" ).click(function() {
-    var searchFilm = $(".barra").val();
-
-    resetSearch()
-    chiamataApiFilm("film", searchFilm);
-    chiamataApiTV("tv", searchFilm);
-
+   search()
   });
 
   //Premendo "Invio" invoco le funzioni "chiamataApi" ,pulisco la pagine e collego il testo scritto nell' input con i titoli dei film e/o serie Tv
   $(".barra").keyup(
     function (event) {
       if(event.which == 13){
-        var searchFilm = $(".barra").val();
-
-        resetSearch()
-        chiamataApiFilm(searchFilm);
-        chiamataApiTV(searchFilm);
-        $(".td").hover(function() {
-          $( this ).fadeOut( 100 );
-          $( this ).fadeIn( 500 );
-        });
+        search();
       }
     }
   );
 });
 
 //-------------------------------------------------//
+//Funzione generica per richiamare le altre funzioni
+function search(){
+  var searchFilm = $(".barra").val();
+
+  resetSearch();
+  chiamataApi("movie", searchFilm);
+  chiamataApi("tv", searchFilm);
+}
+
 var source = $("#film-template").html();
 var template = Handlebars.compile(source);
 //Funzione per stampare il titolo, il titolo originale, la lingua e il voto del film
@@ -46,11 +42,11 @@ function renderResult(type, cin) {
     }
 
     //Distinzione tra il titolo/ titolo originale dei film e delle serie tv
-    if(type == "film"){
+    if(type == "movie"){
       title = cin[i].title;
       original_title = cin[i].original_title;
       containers = $("#list_film");
-    } else if (type == "serietv"){
+    } else if (type == "tv"){
       title = cin[i].name;
       original_title = cin[i].original_name;
       containers = $("#list_tv");
@@ -70,11 +66,11 @@ function renderResult(type, cin) {
   }
 }
 
-//Funzione per la chiamata API Film
-function chiamataApiFilm(searchFilm) {
+//Funzione per le chiamate API di serie TV e film
+function chiamataApi(type, searchFilm) {
   $.ajax(
     {
-      "url" : "https://api.themoviedb.org/3/search/movie",
+      "url" : "https://api.themoviedb.org/3/search/" + type,
       "data" : {
         "api_key" : "c0328fab8702a24e23778bd6bd73ba4b",
         "query" : searchFilm,
@@ -82,34 +78,24 @@ function chiamataApiFilm(searchFilm) {
       },
       "method": "GET",
       "success" : function (data) {
-        renderResult("film", data.results);
-        if(data.total_results == 0){
-          alert("Attenzione devi inserire il titolo di un film o di una serie Tv!");
+        if(data.total_results > 0){
+          renderResult(type, data.results);
+        } else {
+          notFoundFilm(type);
+          notFoundTv(type);
         }
+
+        $(".col").mouseenter(function() {
+          $(this).find(".td").removeClass("display");
+          $(this).find(".larg").addClass("display");
+        });
+        $(".col").mouseleave(function() {
+          $(this).find(".td").addClass("display");
+          $(this).find(".larg").removeClass("display");
+        });
       },
       "error": function (errore) {
         alert("Attenzione devi inserire il titolo di un film o di una serie Tv!");
-      }
-    }
-  );
-}
-
-//Funzione per la chiamata API serie TV
-function chiamataApiTV(searchFilm) {
-  $.ajax(
-    {
-      "url" : "https://api.themoviedb.org/3/search/tv",
-      "data" : {
-        "api_key" : "c0328fab8702a24e23778bd6bd73ba4b",
-        "query" : searchFilm,
-        "language" : "it-IT",
-      },
-      "method": "GET",
-      "success" : function (data) {
-        renderResult("serietv", data.results);
-        console.log(data.results);
-      },
-      "error": function (errore) {
       }
     }
   );
@@ -154,4 +140,25 @@ function resetSearch() {
   $("#list_film").html("");
   $("#list_tv").html("");
   $(".barra").val("");
+}
+
+//Funzione che stampa "La ricerca non ha prodotto nessun Film" se non sono presenti film con quel titolo,oppure stampa "La ricerca non ha prodotto nessuna serie Tv" se non ci sono serie Tv con quel nome
+function notFoundFilm(type){
+
+
+  var containers;
+
+  if(type == "movie"){
+    var source = $("#notfound_film-template").html();
+    var template = Handlebars.compile(source);
+    containers = $("#list_film");
+    var html = template()
+    containers.append(html);
+  } else if (type == "tv") {
+    var source = $("#notfound_tv-template").html();
+    var template = Handlebars.compile(source);
+    containers = $("#list_tv");
+    var html = template()
+    containers.append(html);
+  }
 }

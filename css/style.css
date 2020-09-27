@@ -59,14 +59,9 @@ input{
 .display{
   display: none;
 }
-.col:hover .larg{
-  display: none;
-}
-.col:hover .td{
-  display: block;
-}
 li{
   list-style: none;
+  cursor: pointer;
 }
 .containers{
   padding-top: 30px;
@@ -86,3 +81,12 @@ ul{
   line-height: 35px;
   border: 2px solid white;
 }
+
+/* Andando con il mouse sopra una card (on hover), appaiono le informazioni
+aggiuntive già prese nei punti precedenti più la overview (soluzione con CSS) */
+/* .col:hover .larg{
+  display: none;
+}
+.col:hover .td{
+  display: block;
+} */
